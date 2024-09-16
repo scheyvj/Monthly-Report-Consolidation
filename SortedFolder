@@ -1,0 +1,115 @@
+# #step 1
+# from google.colab import drive
+# drive.mount('/content/drive')
+
+# #step 2
+# cd/content/drive/My Drive/Externship_7thsem
+
+# #step 3
+# import pandas as pd
+# import os
+# import shutil
+
+# #step 4
+# source_folders = {
+#     'January 2024': '/content/drive/MyDrive/Externship_7thsem/Jan 2024',
+#     'February 2024': '/content/drive/MyDrive/Externship_7thsem/Feb 2024',
+#     'March 2024': '/content/drive/MyDrive/Externship_7thsem/March 2024',
+#     'April 2024':'/content/drive/MyDrive/Externship_7thsem/April 2024',
+#     'May 2024':'/content/drive/MyDrive/Externship_7thsem/May 2024',
+#     'June 2024':'/content/drive/MyDrive/Externship_7thsem/June 2024',
+#     'July 2024':'/content/drive/MyDrive/Externship_7thsem/July 2024',
+#     'August 2024':'/content/drive/MyDrive/Externship_7thsem/Aug 2024',
+#     'September 2024':'/content/drive/MyDrive/Externship_7thsem/September 2024',
+#     'October 2024':'/content/drive/MyDrive/Externship_7thsem/October 2024',
+#     'November 2024':'/content/drive/MyDrive/Externship_7thsem/Nov 2024',
+#     'December 2024':'/content/drive/MyDrive/Externship_7thsem/December 2024'
+
+# }
+
+# #step 5
+# sorted_folder = '/content/drive/MyDrive/SortedFolder'
+
+# #step 6
+# if not os.path.exists(sorted_folder):
+#     os.makedirs(sorted_folder)
+
+# #step 7
+# category_1_folder = os.path.join(sorted_folder, 'Category-1')
+# category_2_folder = os.path.join(sorted_folder, 'Category-2')
+# category_3_folder = os.path.join(sorted_folder, 'Category-3')
+
+# #step 8
+# def ensure_folder_exists(folder):
+#     if not os.path.exists(folder):
+#         os.makedirs(folder)
+
+# #step 9
+# for folder in [category_1_folder, category_2_folder, category_3_folder]:
+#     ensure_folder_exists(folder)
+
+
+# #step 10
+# def move_excel_files_to_categories_by_month(month, src_folder):
+
+#     files = os.listdir(src_folder)
+
+#     for file_name in files:
+
+#         if file_name.endswith('.xlsx'):
+#             file_path = os.path.join(src_folder, file_name)
+
+
+#             try:
+#                 first_number = float(file_name.split('.')[0])
+#             except ValueError:
+
+#                 continue
+
+
+#             month_folder_1 = os.path.join(category_1_folder, month)
+#             month_folder_2 = os.path.join(category_2_folder, month)
+#             month_folder_3 = os.path.join(category_3_folder, month)
+
+
+#             ensure_folder_exists(month_folder_1)
+#             ensure_folder_exists(month_folder_2)
+#             ensure_folder_exists(month_folder_3)
+
+
+#             if 0 < first_number < 2:
+#                 shutil.move(file_path, month_folder_1)
+
+#             elif 1 < first_number < 3:
+#                 shutil.move(file_path, month_folder_2)
+
+#             elif 2 < first_number < 4:
+#                 shutil.move(file_path, month_folder_3)
+
+
+# #step 11
+# for month, folder in source_folders.items():
+#     move_excel_files_to_categories_by_month(month, folder)
+
+# #step 12
+# dataframes_dict = {}
+
+
+# category_folders = [category_1_folder, category_2_folder, category_3_folder]
+
+
+# for category_folder in category_folders:
+#     for month_folder in os.listdir(category_folder):
+#         full_month_folder_path = os.path.join(category_folder, month_folder)
+#         if os.path.isdir(full_month_folder_path):
+#             for file_name in os.listdir(full_month_folder_path):
+#                 if file_name.endswith('.xlsx'):
+#                     file_path = os.path.join(full_month_folder_path, file_name)
+
+
+#                     df = pd.read_excel(file_path)
+
+
+#                     dataframes_dict[file_name] = df
+
+# print("All Excel files have been read into DataFrames called SortedFolder!")
